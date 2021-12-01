@@ -121,6 +121,10 @@ private def argsZ3 : IO.Process.SpawnArgs := {
   cmd := "LAMR/bin/z3"
   args := #["-smt2", "LAMR/bin/temp.smt"] }
 
+private def argsBoolector : IO.Process.SpawnArgs := {
+  cmd := "LAMR/bin/boolector"
+  args := #["--smt2", "LAMR/bin/temp.smt"] }
+
 -- Same as IO.Process.run, but does not require exitcode = 0
 private def run' (args : IO.Process.SpawnArgs) : IO String := do
   let out ← IO.Process.output args
@@ -145,6 +149,7 @@ private def callSolver (args : IO.Process.SpawnArgs) (commands : List Sexp) (ver
 def callCvc4 := @callSolver argsCvc4
 def callCvc5 := @callSolver argsCvc5
 def callZ3 := @callSolver argsZ3
+def callBoolector := @callSolver argsBoolector
 
 private def hexdigits : Array Char :=
   #[ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' ]
